@@ -28,5 +28,4 @@ services:
     environment:
       - 'POSTGRES_USER=postgres'
       - 'POSTGRES_PASSWORD=postgres'
-# locakhos以外でpostgresを動かす場合に必要
       - 'POSTGRES_HOST_AUTH_METHOD=trust'
