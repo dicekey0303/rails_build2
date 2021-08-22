@@ -4,6 +4,7 @@ sudo: required
 services: docker
 # コンテナを起動
 before_install:
+　- docker login -u 19770303 -p f6fe56bf-f914-4038-b0f0-49bbe48977b0
   - docker-compose up -build -d
 # DB準備
 script:
