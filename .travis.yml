@@ -8,8 +8,8 @@ services: docker
 before_install:
 # 　- docker login -u 19770303 -p f6fe56bf-f914-4038-b0f0-49bbe48977b0
   - docker-compose up --build -d
-# herokuのDockerレジストリにlog in
-  - docker login -u "$HEROKU_USERNAME" -p "HEROKU_API_KEY" registry.heroku.com
+# # herokuのDockerレジストリにlog in
+#   - docker login -u "$HEROKU_USERNAME" -p "HEROKU_API_KEY" registry.heroku.com
 
 # DB準備
 script:
@@ -18,15 +18,15 @@ script:
  # テスト実行
   docker-compose exec --env 'RAILS_ENV=test' web rails test
 
-deploy:
-  provider: heroku
-  script:
-# 本番環境用のDockerfileをビルド(image作成)
-    docker build -t registry.heroku.com/$HEROKU_APP_NAME/web -f Dockerfile.prod .;
-# Herokuのdockerレジストリに本番環境用のimageをpush
-    docker push registry.heroku.com/$HEROKU_APP_NAME/web;
-# アプリ起動
-    heroku run --app $HEROKU_APP_NAME rails db:migrate;
-#　デプロイはmasterにmergeされたときだけ
-  on:
-    branch: master
+# deploy:
+#   provider: heroku
+#   script:
+# # 本番環境用のDockerfileをビルド(image作成)
+#     docker build -t registry.heroku.com/$HEROKU_APP_NAME/web -f Dockerfile.prod .;
+# # Herokuのdockerレジストリに本番環境用のimageをpush
+#     docker push registry.heroku.com/$HEROKU_APP_NAME/web;
+# # アプリ起動
+#     heroku run --app $HEROKU_APP_NAME rails db:migrate;
+# #　デプロイはmasterにmergeされたときだけ
+#   on:
+#     branch: master
